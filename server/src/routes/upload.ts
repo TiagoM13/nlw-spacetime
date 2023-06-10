@@ -11,7 +11,7 @@ export async function uploadRoutes(app: FastifyInstance) {
   app.post('/upload', async (request, reply) => {
     const upload = await request.file({
       limits: {
-        fieldSize: 5_242_888,
+        fileSize: 5_242_880, // 5mb
       },
     })
 
@@ -32,7 +32,7 @@ export async function uploadRoutes(app: FastifyInstance) {
     const fileName = fileId.concat(extension)
 
     const writeStream = createWriteStream(
-      resolve(__dirname, '../../uploads/', fileName),
+      resolve(__dirname, '..', '..', 'uploads', fileName),
     )
 
     await pump(upload.file, writeStream)
